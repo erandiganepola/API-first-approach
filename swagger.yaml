@@ -385,6 +385,25 @@ components:
           type: number
         orderId:
           type: string
+    Product:
+      title: Clothing Item
+      required:
+        - productId
+      properties:
+        customerName:
+          type: string
+        delivered:
+          type: boolean
+        address:
+          type: string
+        ItemType:
+          type: string
+        creditCardNumber:
+          type: string
+        quantity:
+          type: number
+        orderId:
+          type: string
     Error:
       title: Error object returned with 4XX HTTP status
       required:
@@ -418,6 +437,13 @@ components:
           schema:
             $ref: '#/components/schemas/Order'
       required: true
+    Product:
+      description: Product object that needs to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+      required: true  
   securitySchemes:
     default:
       type: oauth2
