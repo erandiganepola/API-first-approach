@@ -21,7 +21,7 @@ paths:
       description: Return a list of available items
       responses:
         '200':
-          description: OK. List of APIs is returned.
+          description: OK. List of products is returned.
           content:
             application/json:
               schema:
@@ -38,6 +38,86 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+
+        if (!responses[200]) {
+         responses [200] = [];
+        }
+
+        responses[200]["application/json"] = [ {
+          "price" : "string",
+          "description" : "string",
+          "name" : "string",
+          "image" : "string"
+        } ];
+
+
+        if (!responses[406]) {
+         responses [406] = [];
+        }
+
+        responses[406]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json"; // assign whatever available
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -61,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: '#/components/schemas/ProductItem'
         '404':
           description: Not Found. Requested API does not exist.
           content:
@@ -78,6 +158,105 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+
+        if (!responses[200]) {
+         responses [200] = [];
+        }
+
+        responses[200]["application/json"] = {
+          "customerName" : "string",
+          "delivered" : true,
+          "address" : "string",
+          "itemDescription" : "object",
+          "creditCardNumber" : "string",
+          "quantity" : 1.5,
+          "orderId" : "string"
+        };
+
+
+        if (!responses[404]) {
+         responses [404] = [];
+        }
+
+        responses[404]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        if (!responses[406]) {
+         responses [406] = [];
+        }
+
+        responses[406]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json"; // assign whatever available
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -95,7 +274,7 @@ paths:
             type: string
             format: string
       requestBody:
-        $ref: '#/components/requestBodies/Product'
+        $ref: '#/components/requestBodies/ProductItem'
       responses:
         '200':
           description: OK. Successful response with updated Product
@@ -115,7 +294,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: '#/components/schemas/ProductItem'
         '400':
           description: Bad Request. Invalid request or validation error
           content:
@@ -132,6 +311,105 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+
+        if (!responses[200]) {
+         responses [200] = [];
+        }
+
+        responses[200]["application/json"] = {
+          "customerName" : "string",
+          "delivered" : true,
+          "address" : "string",
+          "itemDescription" : "object",
+          "creditCardNumber" : "string",
+          "quantity" : 1.5,
+          "orderId" : "string"
+        };
+
+
+        if (!responses[400]) {
+         responses [400] = [];
+        }
+
+        responses[400]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        if (!responses[404]) {
+         responses [404] = [];
+        }
+
+        responses[404]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json"; // assign whatever available
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -161,6 +439,87 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+        if (!responses[200]) {
+          responses[200] = [];
+        }
+
+        responses[200]["application/json"] = "";
+
+        responses[200]["application/xml"] = "";
+
+
+
+        if (!responses[404]) {
+         responses [404] = [];
+        }
+
+        responses[404]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json";
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        } else if (accept == "application/xml") {
+         mc.setProperty('CONTENT_TYPE', 'application/xml');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadXML(responses[responseCode]["application/xml"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -210,6 +569,105 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+
+        if (!responses[201]) {
+         responses [201] = [];
+        }
+
+        responses[201]["application/json"] = {
+          "customerName" : "string",
+          "delivered" : true,
+          "address" : "string",
+          "itemDescription" : "object",
+          "creditCardNumber" : "string",
+          "quantity" : 1.5,
+          "orderId" : "string"
+        };
+
+
+        if (!responses[400]) {
+         responses [400] = [];
+        }
+
+        responses[400]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        if (!responses[415]) {
+         responses [415] = [];
+        }
+
+        responses[415]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 201;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json"; // assign whatever available
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -250,60 +708,105 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
-      x-wso2-application-security:
-        security-types:
-          - oauth2
-        optional: false
-    put:
-      description: Update an existing Order
-      parameters:
-        - name: orderId
-          in: path
-          description: Order Id
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: string
-      requestBody:
-        $ref: '#/components/requestBodies/Order'
-      responses:
-        '200':
-          description: OK. Successful response with updated Order
-          headers:
-            Location:
-              description: The URL of the newly created resource.
-              style: simple
-              explode: false
-              schema:
-                type: string
-            Content-Type:
-              description: The content type of the body.
-              style: simple
-              explode: false
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Bad Request. Invalid request or validation error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found. The resource to be updated does not exist.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security:
-        - default: []
-      x-auth-type: Application & Application User
-      x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+
+        if (!responses[200]) {
+         responses [200] = [];
+        }
+
+        responses[200]["application/json"] = {
+          "customerName" : "string",
+          "delivered" : true,
+          "address" : "string",
+          "itemDescription" : "object",
+          "creditCardNumber" : "string",
+          "quantity" : 1.5,
+          "orderId" : "string"
+        };
+
+
+        if (!responses[404]) {
+         responses [404] = [];
+        }
+
+        responses[404]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        if (!responses[406]) {
+         responses [406] = [];
+        }
+
+        responses[406]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json"; // assign whatever available
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -333,6 +836,87 @@ paths:
         - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: Unlimited
+      x-mediation-script: >-
+        var accept = mc.getProperty('AcceptHeader');
+
+        var responseCode = mc.getProperty('query.param.responseCode');
+
+        var responseCodeSC;
+
+        var responses = [];
+
+        if (!responses[200]) {
+          responses[200] = [];
+        }
+
+        responses[200]["application/json"] = "";
+
+        responses[200]["application/xml"] = "";
+
+
+
+        if (!responses[404]) {
+         responses [404] = [];
+        }
+
+        responses[404]["application/json"] = {
+          "message" : "string",
+          "error" : [ {
+            "message" : "string",
+            "code" : 0
+          } ],
+          "description" : "string",
+          "code" : 0,
+          "moreInfo" : "string"
+        };
+
+
+        responses[501] = [];
+
+        responses[501]["application/json"] = {
+
+        "code" : 501,
+
+        "description" : "Not Implemented"}
+
+        responses[501]["application/xml"] =
+        <response><code>501</code><description>Not
+        Implemented</description></response>;
+
+
+        if (responseCode == null) {
+         responseCode = 200;
+        }
+
+
+        if (!responses[responseCode]) {
+          if (responses["default"]) {
+            responseCode = "default"
+          } else {
+            responseCode = 501;
+          }
+        }
+
+        if (responseCode === "default") {
+          responseCodeSC = mc.getProperty('query.param.responseCode');
+        } else {
+          responseCodeSC = responseCode;
+        }
+
+        if (accept == null || !responses[responseCode][accept]) {
+         accept = "application/json";
+        }
+
+
+        if (accept == "application/json") {
+         mc.setProperty('CONTENT_TYPE', 'application/json');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadJSON(responses[responseCode]["application/json"]);
+        } else if (accept == "application/xml") {
+         mc.setProperty('CONTENT_TYPE', 'application/xml');
+         mc.setProperty('HTTP_SC', responseCodeSC + "");
+         mc.setPayloadXML(responses[responseCode]["application/xml"]);
+        }
       x-wso2-application-security:
         security-types:
           - oauth2
@@ -356,8 +940,10 @@ components:
     ProductItem:
       title: Product Item
       required:
-        - name
+        - productId
       properties:
+        productId:
+          type: string
         price:
           type: string
         description:
@@ -377,33 +963,16 @@ components:
           type: boolean
         address:
           type: string
-        ItemType:
-          type: string
+        itemDescription:
+          type: object
         creditCardNumber:
           type: string
         quantity:
           type: number
         orderId:
           type: string
-    Product:
-      title: Clothing Item
-      required:
-        - productId
-      properties:
-        customerName:
-          type: string
-        delivered:
-          type: boolean
-        address:
-          type: string
-        ItemType:
-          type: string
-        creditCardNumber:
-          type: string
-        quantity:
+        subTotal:
           type: number
-        orderId:
-          type: string
     Error:
       title: Error object returned with 4XX HTTP status
       required:
@@ -437,13 +1006,13 @@ components:
           schema:
             $ref: '#/components/schemas/Order'
       required: true
-    Product:
+    ProductItem:
       description: Product object that needs to be added
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Product'
-      required: true  
+            $ref: '#/components/schemas/ProductItem'
+      required: true
   securitySchemes:
     default:
       type: oauth2
