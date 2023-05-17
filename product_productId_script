@@ -8,36 +8,28 @@
  responses [200] = [];
  }
  responses[200]["application/json"] = {
-   "id" : 10,
-   "name" : "doggie",
-   "category" : {
-     "id" : 1,
-     "name" : "Dogs"
-   },
-   "photoUrls" : [ "string" ],
-   "tags" : [ {
-     "id" : 0,
-     "name" : "string"
-   } ],
-   "status" : "available"
+  "productId": "CCL47835",
+  "price": "49.50",
+  "description": {
+    "size": "UK 8",
+    "color": "green",
+  },
+  "name": "LONG SLEEVE CASUAL TOP",
+  "image": "https://uga/clothes/JDHTEHBD4384B5Y"
  };
 
  // **MANUALLY ADDED CODE** //
 
- if (mc.getProperty('uri.var.petId') == 1) {          // Get the path parameter 'petID' to check the condition
+ if (mc.getProperty('uri.var.productId') == 1) {          // Get the path parameter 'petID' to check the condition
    responses[200]["application/json"] = {
-     "id" : 1,
-     "category" : {
-       "id" : 1,
-       "name" : "Dog"
-     },
-     "name" : "doggie",
-     "photoUrls" : [ "https://www.google.com/search?q=pet+images&client=ubuntu&hs=NYm&channel=fs&tbm=isch&source=iu&ictx=1&fir=ZgS81JuMKfVpqM%252CF26KAcU9PVtkCM%252C_&vet=1&usg=AI4_-kQjTnWk4IVhQbkQmoFJ6zFxD1IynA&sa=X&ved=2ahUKEwjt7e2Rj9fsAhUg6XMBHTZBCuIQ9QF6BAgCEFc#imgrc=ZgS81JuMKfVpqM" ],
-     "tags" : [ {
-       "id" : 1,
-       "name" : "German Sheperd"
-     } ],
-     "status" : "available"
+    "productId": "CCL47835",
+    "price": "49.50",
+    "description": {
+      "size": "UK 8",
+      "color": "green",
+    },
+    "name": "LONG SLEEVE CASUAL TOP",
+    "image": "https://uga/clothes/JDHTEHBD4384B5Y"
    }
  }
 
